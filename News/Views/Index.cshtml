@@ -1,0 +1,21 @@
+﻿@model List<News.Models.New>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Новини</h2>
+
+<ul class="news">
+    @foreach (var n in Model)
+    {
+        if (@n.IsView)
+        {
+            <li>
+                <h3>@n.Header</h3>
+                <h4>@n.Content</h4>
+                <div class="text-info">@n.Date</div>
+            </li>
+        }
+    }
+</ul>
+

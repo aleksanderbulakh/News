@@ -1,0 +1,51 @@
+﻿@model News.Models.New
+@{
+    ViewBag.Title = "Додати новину";
+}
+
+<h2>AddNew</h2>
+
+<content>
+   
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2>Додати новину</h2>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Header, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Header, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Header, "", new { @class = "text-danger" })
+                </div>
+            </div>  
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Content, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>  
+                               
+            <div class="form-group">
+                @Html.LabelFor(m => m.IsView, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.IsView, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsView, "", new { @class = "text-danger" })
+                </div>
+            </div> 
+                        
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>       
+        </div>
+       
+
+    }
+</content>
+
