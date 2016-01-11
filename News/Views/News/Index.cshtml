@@ -1,4 +1,4 @@
-﻿@model List<News.Models.New>
+﻿@model List<News.Models.NewsOfListViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -8,14 +8,12 @@
 <ul class="news">
     @foreach (var n in Model)
     {
-        if (@n.IsView)
-        {
-            <li>
-                <h3>@n.Header</h3>
-                <h4>@n.Content</h4>
-                <div class="text-info">@n.Date</div>
-            </li>
-        }
+        <li>
+            <h3><a href="~/News/MoreInfo/@n.Id">@n.Header</a></h3>            
+            <div class="text-info">@n.Date</div>
+            <div class="text-success">@n.Author</div>
+            <div></div>
+        </li>
     }
 </ul>
 

@@ -185,6 +185,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\New.cs" />
+    <Compile Include="Models\NewsOfListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -246,6 +247,8 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Yeah.cshtml" />
     <Content Include="Views\PersonalArea\Index.cshtml" />
+    <Content Include="Views\News\MoreInfo.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

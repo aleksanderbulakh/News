@@ -13,9 +13,12 @@ namespace News.Models
     public class New
     {
         [DataMember]
+        public Guid Id { get; set; }
+
+        [DataMember]
         [Required]
         [Display(Name = "Заголовок")]
-        [StringLength(15, ErrorMessage = "Довжина заголовку повинна бути не більше 15 символів.")]
+        [StringLength(30, ErrorMessage = "Довжина заголовку повинна бути не більше 30 символів.")]
         public string Header { get; set; }
 
         [DataMember]
@@ -30,7 +33,8 @@ namespace News.Models
         [Display(Name = "Дата публікації")]
         public DateTime Date { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        [DataMember]
+        public string Author { get; set; }
 
         [DataMember]
         [Required]
@@ -39,14 +43,27 @@ namespace News.Models
 
         public static List<New> All_News = new List<New>();
 
+        public New(New CopyNew)
+        {
+            Id = CopyNew.Id;
+            Header = CopyNew.Header;
+            Content = CopyNew.Content;
+            Date = CopyNew.Date;
+            Author = CopyNew.Author;
+            IsView = CopyNew.IsView;
+        }
+
+        public New() { }
+
         //ЗБерігаємо поточну новину у файл *.json
-        public static void Serialize_New()
+        public static void Serialize_All()
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
             using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
             {
                 jsonFormatter.WriteObject(fs, All_News);
+                fs.Close();
             }
         }
 
@@ -56,10 +73,11 @@ namespace News.Models
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-            using (FileStream fs = new FileStream("/News.json", FileMode.Open))
+            using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
             {
-               All_News = (List<New>)jsonFormatter.ReadObject(fs);
-
+                    //All_News = (List<New>)jsonFormatter.ReadObject(fs);
+                    fs.Close();
+               
             }
 
 
