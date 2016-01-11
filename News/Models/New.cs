@@ -30,36 +30,39 @@ namespace News.Models
         [Display(Name = "Дата публікації")]
         public DateTime Date { get; set; }
 
+        public ApplicationUser Author { get; set; }
+
         [DataMember]
         [Required]
         [Display(Name = "Видимість")]
         public bool IsView { get; set; }
 
-        //ЗБерігаємо поточну новину у файл *.json
-        public void Serialize_New()
-        {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(New));
+        public static List<New> All_News = new List<New>();
 
-            using (FileStream fs = new FileStream("D:\\News.json", FileMode.OpenOrCreate))
+        //ЗБерігаємо поточну новину у файл *.json
+        public static void Serialize_New()
+        {
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
+
+            using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
             {
-                jsonFormatter.WriteObject(fs, this);
+                jsonFormatter.WriteObject(fs, All_News);
             }
         }
 
 
         //Зчитуємо усі об'єкти з файлу *.json
-        public static List<New> Deserialize_All()
+        public static void Deserialize_All()
         {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(New));
-            List<New> List_News = new List<New>();
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-            using (FileStream fs = new FileStream("D:\\News.json", FileMode.Open))
+            using (FileStream fs = new FileStream("/News.json", FileMode.Open))
             {
-                New new_in = (New)jsonFormatter.ReadObject(fs);
-                List_News.Add(new_in);
+               All_News = (List<New>)jsonFormatter.ReadObject(fs);
+
             }
 
-            return List_News;
+
         }
     }
 }

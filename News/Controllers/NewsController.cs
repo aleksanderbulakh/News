@@ -12,14 +12,15 @@ namespace News.Controllers
         // GET: News
         public ActionResult Index()
         {
-            List<New> list_news = New.Deserialize_All();
-            return View(list_news);
+            New.Deserialize_All();
+            return View(New.All_News);
         }
 
         [HttpGet]
         [Authorize(Roles ="Admin, editor")]
         public ActionResult AddNew()
         {
+            New.Deserialize_All();
             return View();
         }
         [HttpPost]
@@ -30,7 +31,8 @@ namespace News.Controllers
                 return View(new_add);
 
             new_add.Date = DateTime.Now;
-            new_add.Serialize_New();
+            New.All_News.Add(new_add);
+            New.Serialize_New();
 
             return RedirectToAction("Yeah");
         }
