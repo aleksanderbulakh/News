@@ -73,18 +73,11 @@ namespace News.Models
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-<<<<<<< HEAD
+
             using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
             {
                     //All_News = (List<New>)jsonFormatter.ReadObject(fs);
                     fs.Close();
-               
-=======
-            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
-            {
-               //All_News = (List<New>)jsonFormatter.ReadObject(fs);
-
->>>>>>> origin/master
             }
 
 
