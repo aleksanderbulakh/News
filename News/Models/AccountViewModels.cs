@@ -48,8 +48,11 @@ namespace News.Models
 
     public class LoginViewModel
     {
+        [Display(Name = "Логін")]
         public string UserName { get; set; }
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
+        [Display(Name = "Залишитися в системі")]
         public bool RememberMe { get; set; }
     }
 
@@ -69,6 +72,7 @@ namespace News.Models
         [Display(Name = "Підтвердження пароля")]
         [Compare("Password", ErrorMessage = "Пароль та його підтвердження не збігаються.")]
         public string ConfirmPassword { get; set; }
+        [Display(Name = "Виберіть роль")]
         public string Role { get; set; }
     }
 

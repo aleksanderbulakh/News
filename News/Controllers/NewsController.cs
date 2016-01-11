@@ -34,15 +34,20 @@ namespace News.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin, editor")]
+        [Authorize(Roles ="admin, editor")]
         public ActionResult AddNew()
         {
             New.Deserialize_All();
             return View();
         }
         [HttpPost]
+<<<<<<< HEAD
         [Authorize(Roles = "Admin, editor")]
         public async Task<ActionResult> AddNew(New new_add)
+=======
+        [Authorize(Roles = "admin, editor")]
+        public ActionResult AddNew(New new_add)
+>>>>>>> origin/master
         {
             if (!ModelState.IsValid)
                 return View(new_add);

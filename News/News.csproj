@@ -246,9 +246,15 @@
     <Content Include="Views\News\AddNew.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Yeah.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\PersonalArea\Index.cshtml" />
     <Content Include="Views\News\MoreInfo.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
+=======
+    <Content Include="Views\PersonalArea\AdminHomeAction.cshtml" />
+    <Content Include="Views\PersonalArea\EditorHomeAction.cshtml" />
+    <Content Include="Views\PersonalArea\JournalistHomeAction.cshtml" />
+>>>>>>> origin/master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

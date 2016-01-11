@@ -1,6 +1,12 @@
 ﻿@model News.Models.RegisterViewModel
 @{
     ViewBag.Title = "Регистрация";
+    List<SelectListItem> listRoles = new List<SelectListItem>();
+    listRoles.Insert(0, new SelectListItem { Text="Виберіть роль"});
+    listRoles.Insert(1, new SelectListItem { Text="Admin", Value = "admin" });
+    listRoles.Insert(2, new SelectListItem { Text = "Editor", Value = "editor" });
+    listRoles.Insert(3, new SelectListItem { Text = "Journalist", Value = "journalist" });
+    IEnumerable<SelectListItem> selectRoles = listRoles;
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -11,6 +17,7 @@
     <h4>Создайте новую учетную запись.</h4>
     <hr />
     <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
         </div>
@@ -30,7 +37,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Role, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Role, selectRoles, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
