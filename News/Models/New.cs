@@ -44,7 +44,7 @@ namespace News.Models
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-            using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
             {
                 jsonFormatter.WriteObject(fs, All_News);
             }
@@ -56,9 +56,9 @@ namespace News.Models
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-            using (FileStream fs = new FileStream("/News.json", FileMode.Open))
+            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
             {
-               All_News = (List<New>)jsonFormatter.ReadObject(fs);
+               //All_News = (List<New>)jsonFormatter.ReadObject(fs);
 
             }
 

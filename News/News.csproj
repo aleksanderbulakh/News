@@ -245,7 +245,9 @@
     <Content Include="Views\News\AddNew.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Yeah.cshtml" />
-    <Content Include="Views\PersonalArea\Index.cshtml" />
+    <Content Include="Views\PersonalArea\AdminHomeAction.cshtml" />
+    <Content Include="Views\PersonalArea\EditorHomeAction.cshtml" />
+    <Content Include="Views\PersonalArea\JournalistHomeAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

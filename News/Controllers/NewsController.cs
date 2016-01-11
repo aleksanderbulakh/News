@@ -17,14 +17,14 @@ namespace News.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Admin, editor")]
+        [Authorize(Roles ="admin, editor")]
         public ActionResult AddNew()
         {
             New.Deserialize_All();
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Admin, editor")]
+        [Authorize(Roles = "admin, editor")]
         public ActionResult AddNew(New new_add)
         {
             if (!ModelState.IsValid)
