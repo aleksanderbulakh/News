@@ -24,6 +24,18 @@ namespace News.Controllers
                     NewInList.Author = n.Author;
                     NewInList.Date = n.Date;
                     NewInList.Header = n.Header;
+                    NewInList.IsView = n.IsView;
+                    NewInList.Id = n.Id;
+
+                    News_View.Add(NewInList);
+                }
+                else if (User.IsInRole("editor") || User.IsInRole("admin"))
+                {
+                    NewInList = new NewsOfListViewModel();
+                    NewInList.Author = n.Author;
+                    NewInList.Date = n.Date;
+                    NewInList.Header = n.Header;
+                    NewInList.IsView = n.IsView;
                     NewInList.Id = n.Id;
 
                     News_View.Add(NewInList);
@@ -33,7 +45,7 @@ namespace News.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin, editor, journalist")]
+        [Authorize(Roles = "admin, journalist")]
         public ActionResult AddNew()
         {            
             return View();
@@ -41,7 +53,7 @@ namespace News.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Admin, editor, journalist")]
+        [Authorize(Roles = "Admin, journalist")]
         public async Task<ActionResult> AddNew(New new_add)
         {
             if (!ModelState.IsValid)
@@ -82,8 +94,9 @@ namespace News.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Edit (Guid Id)
-        {
+        {            
             New ThisNew = new New();
             List<New> All_News = New.Deserialize_All();
             foreach (var n in All_News)
@@ -94,10 +107,23 @@ namespace News.Controllers
                 }
             }
 
-            return View(ThisNew);
+            if (User.IsInRole("journalist"))
+            {
+                if (User.Identity.Name == ThisNew.Author)
+                {
+                    return View(ThisNew);
+                }
+            }
+            else
+            {
+                return View(ThisNew);
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit (New model)
         {
             if (!ModelState.IsValid)

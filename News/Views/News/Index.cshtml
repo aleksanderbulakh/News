@@ -9,7 +9,11 @@
     @foreach (var n in Model)
     {
         <li>
-            <h3><a href="~/news/item/@n.Id">@n.Header</a></h3>            
+            <h3>
+                <a href="~/news/item/@n.Id">@n.Header</a>
+                @if (@n.IsView) {<span class="text-warning" style="display:block;">Видима</span>}
+                else { <span class="text-warning" style="display:block;">Невидима</span> }
+            </h3>            
             <div class="text-info">@n.Date</div>
             <div class="text-success">@n.Author</div>
             @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
