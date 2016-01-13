@@ -30,12 +30,10 @@
             </div>
         </div>
 
-        <div class="editor-label"><b>Предмети</b></div>
-        <input type="checkbox" name="TeachersSubjects" value="@Model.IsView"
-               @(Model.IsView ? "checked=\"checked\"" : "") />Видимість <br />
-
-
-
+        @*<input type="checkbox" name="@Model.IsView" value="@Model.IsView"
+               @(Model.IsView ? "checked=\"checked\"" : "") />Видимість <br />*@
+        @Html.LabelFor(m => m.IsView)
+        @Html.CheckBoxFor(m => m.IsView)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

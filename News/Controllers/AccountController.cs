@@ -79,14 +79,14 @@ namespace News.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "News");
+                    return RedirectToAction("Index", "PersonalArea");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Неудачная попытка входа.");
+                    ModelState.AddModelError("", "Неправильний логін або пароль !");
                     return View(model);
             }
         }
@@ -139,7 +139,9 @@ namespace News.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            if (User.IsInRole("admin"))
+                return View();
+            return RedirectToAction("Index", "News");
         }
 
         //
@@ -149,25 +151,30 @@ namespace News.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.UserName+"@gmail.com"};
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+          //  if (User.IsInRole("admin"))
+           // {
+               if (ModelState.IsValid)
                 {
+                    var user = new ApplicationUser { UserName = model.UserName, Email = model.UserName + "@gmail.com" };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
 
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    UserManager.AddToRole(user.Id, model.Role);
-                    // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Отправка сообщения электронной почты с этой ссылкой
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
+                        //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                        UserManager.AddToRole(user.Id, model.Role);
+                        // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Отправка сообщения электронной почты с этой ссылкой
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
 
-                    return RedirectToAction("Index", "PersonalArea");
-                }
-                AddErrors(result);
-            }
+                        return RedirectToAction("Index", "PersonalArea");
+                    }
+                    AddErrors(result);
+               }
+           // }
+            //else
+               // RedirectToAction("Login", "Account");
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);

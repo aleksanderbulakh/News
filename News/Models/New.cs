@@ -40,8 +40,9 @@ namespace News.Models
         [Required]
         [Display(Name = "Видимість")]
         public bool IsView { get; set; }
-
-        public static List<New> All_News = new List<New>();
+               
+        
+                  
 
         public New(New CopyNew)
         {
@@ -56,31 +57,33 @@ namespace News.Models
         public New() { }
 
         //ЗБерігаємо поточну новину у файл *.json
-        public static void Serialize_All()
+        public static void Serialize_All(List<New> ListNews)
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
-            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("D://News.json", FileMode.Create, FileAccess.Write))
             {
-                jsonFormatter.WriteObject(fs, All_News);
+
+                jsonFormatter.WriteObject(fs, ListNews);
                 fs.Close();
             }
         }
 
 
         //Зчитуємо усі об'єкти з файлу *.json
-        public static void Deserialize_All()
+        public static List<New> Deserialize_All()
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
 
+            List<New> All_News = new List<New>();
 
-            using (FileStream fs = new FileStream("/News.json", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
             {
-                    //All_News = (List<New>)jsonFormatter.ReadObject(fs);
+                    All_News = (List<New>)jsonFormatter.ReadObject(fs);
                     fs.Close();
             }
 
-
+            return All_News;
         }
     }
 }

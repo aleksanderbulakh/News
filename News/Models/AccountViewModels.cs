@@ -48,30 +48,42 @@ namespace News.Models
 
     public class LoginViewModel
     {
-        [Display(Name = "Логін")]
+        [Required(ErrorMessage = "Поле <Номер телефона> повинно бути заповнено.")]
+        [RegularExpression(@"^((|\d| |-|))*$", ErrorMessage = "Поле повинно мати тільки символи від 0 до 9.")]
+        [StringLength(10, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
+        [Display(Name = "Номер телефона")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Поле <Пароль> повинно бути заповнено.")]
+        [StringLength(100, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
+        [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
+
         [Display(Name = "Залишитися в системі")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
-        [StringLength(100, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 5)]
-        [RegularExpression(@"[A-Za-z]+", ErrorMessage = "Логін повинен містити лише цифри та літери латинського алфавіту.")]
-        [Display(Name = "Логін")]
+        [Required(ErrorMessage = "Поле <Номер телефона> повинно бути заповнено.")]
+        [RegularExpression(@"^((|\d| |-|))*$", ErrorMessage = "Поле повинно мати тільки символи від 0 до 9.")]
+        [StringLength(10, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
+        [Display(Name = "Номер телефона")]
         public string UserName { get; set; }
-        [Required]
-        [StringLength(100, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 6)]
+
+        [Required(ErrorMessage = "Поле <Пароль> повинно бути заповнено.")]
+        [StringLength(100, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "Поле <Підтвердження пароля> повинно бути заповнено.")]
         [DataType(DataType.Password)]
         [Display(Name = "Підтвердження пароля")]
         [Compare("Password", ErrorMessage = "Пароль та його підтвердження не збігаються.")]
         public string ConfirmPassword { get; set; }
+
         [Display(Name = "Виберіть роль")]
         public string Role { get; set; }
     }

@@ -13,6 +13,21 @@ namespace News
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+               name: "Home",
+               url: "",
+               defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }
+           );
+
+
+            routes.MapRoute(
+                name: "News",
+                url: "news",
+                defaults: new { controller = "News", action = "Index" }
+            );
+
+
             routes.MapRoute(
                 name: "admin-redirect",
                 url: "admin-redirect",
@@ -62,10 +77,23 @@ namespace News
             );
 
             routes.MapRoute(
-                name: "Home",
-                url: "",
-                defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }
+                name: "new-add",
+                url: "new-add",
+                defaults: new { controller = "News", action = "AddNew", id = UrlParameter.Optional }
             );
+
+
+            routes.MapRoute(
+                name: "news/item/",
+                url: "news/item/{id}",
+                defaults: new { controller = "News", action = "MoreInfo", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+               name: "news/item/edit",
+               url: "news/item/edit/{id}",
+               defaults: new { controller = "News", action = "Edit", id = UrlParameter.Optional }
+           );
         }
     }
 }

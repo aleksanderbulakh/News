@@ -27,7 +27,7 @@ namespace News.Models
             roleManager.Create(role3);
 
             //Створюємо адміністратора
-            var admin = new ApplicationUser { UserName = "Admin" };
+            var admin = new ApplicationUser { UserName = "0631111111" };
             string password = "qwerty1234";
             var result = userManager.Create(admin, password);
 

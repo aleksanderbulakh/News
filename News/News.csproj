@@ -174,6 +174,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PersonalAreaController.cs" />
@@ -198,6 +199,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -229,7 +231,9 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Login.cshtml">
+      <BrowseToURL>/login</BrowseToURL>
+    </Content>
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
@@ -246,18 +250,16 @@
     <Content Include="Views\News\AddNew.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\Yeah.cshtml" />
-
     <Content Include="Views\PersonalArea\Index.cshtml" />
     <Content Include="Views\News\MoreInfo.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
-
     <Content Include="Views\PersonalArea\AdminHomeAction.cshtml" />
     <Content Include="Views\PersonalArea\EditorHomeAction.cshtml" />
     <Content Include="Views\PersonalArea\JournalistHomeAction.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

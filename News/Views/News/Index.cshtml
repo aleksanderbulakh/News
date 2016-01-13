@@ -9,9 +9,13 @@
     @foreach (var n in Model)
     {
         <li>
-            <h3><a href="~/News/MoreInfo/@n.Id">@n.Header</a></h3>            
+            <h3><a href="~/news/item/@n.Id">@n.Header</a></h3>            
             <div class="text-info">@n.Date</div>
             <div class="text-success">@n.Author</div>
+            @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
+            {
+                <div><a href="~/news/item/edit/@n.Id">Редагувати</a></div>
+            }            
             <div></div>
         </li>
     }

@@ -25,7 +25,7 @@ namespace News
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/login"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Позволяет приложению проверять метку безопасности при входе пользователя.

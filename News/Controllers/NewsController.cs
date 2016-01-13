@@ -13,11 +13,10 @@ namespace News.Controllers
         // GET: News
         public ActionResult Index()
         {
-            New.Deserialize_All();
-
             List<NewsOfListViewModel> News_View = new List<NewsOfListViewModel>();
             NewsOfListViewModel NewInList;
-            foreach(var n in New.All_News)
+            List<New> All_News = New.Deserialize_All();
+            foreach(var n in All_News)
             {
                 if (n.IsView)
                 {
@@ -34,16 +33,15 @@ namespace News.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="admin, editor")]
+        [Authorize(Roles = "admin, editor, journalist")]
         public ActionResult AddNew()
-        {
-            New.Deserialize_All();
+        {            
             return View();
         }
 
 
         [HttpPost]
-        [Authorize(Roles = "Admin, editor")]
+        [Authorize(Roles = "Admin, editor, journalist")]
         public async Task<ActionResult> AddNew(New new_add)
         {
             if (!ModelState.IsValid)
@@ -55,9 +53,10 @@ namespace News.Controllers
             new_add.Author = author.UserName;
             new_add.Id = new Guid();
             new_add.Id = Guid.NewGuid();
-            New.All_News.Add(new_add);
-            New.Serialize_All();
-
+            List<New> All_News = New.Deserialize_All();            
+            //List<New> All_News = new List<New>();
+            All_News.Add(new_add);
+            New.Serialize_All(All_News);
             return RedirectToAction("Yeah");
         }
 
@@ -70,7 +69,8 @@ namespace News.Controllers
         {
             New.Deserialize_All();
             New ThisNew = new New() ;
-            foreach (var n in New.All_News)
+            List<New> All_News = New.Deserialize_All();
+            foreach (var n in All_News)
             {
                 if (n.Id==Id)
                 {
@@ -84,9 +84,9 @@ namespace News.Controllers
         [HttpGet]
         public ActionResult Edit (Guid Id)
         {
-            New.Deserialize_All();
             New ThisNew = new New();
-            foreach (var n in New.All_News)
+            List<New> All_News = New.Deserialize_All();
+            foreach (var n in All_News)
             {
                 if (n.Id == Id)
                 {
@@ -106,7 +106,8 @@ namespace News.Controllers
             }
 
             New.Deserialize_All();
-            foreach(var n in New.All_News)
+            List<New> All_News = New.Deserialize_All();
+            foreach (var n in All_News)
             {
                 if (n.Id == model.Id)
                 {
@@ -116,7 +117,7 @@ namespace News.Controllers
                 }
             }
 
-            New.Serialize_All();
+            New.Serialize_All(All_News);
             return RedirectToAction("Index");
         }
     }
