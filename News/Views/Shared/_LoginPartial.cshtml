@@ -5,17 +5,14 @@
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Index", "PersonalArea", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-    </ul>
+<div class="Hi">@Html.ActionLink("Вітаємо, " + User.Identity.GetUserName() + "!", "Index", "PersonalArea", routeValues: null, htmlAttributes: new { title = "Manage" })</div> 
+<div class="Exite"><a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></div>
+
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+   <span>
+       @Html.ActionLink("Увійти!", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+   </span> 
 }

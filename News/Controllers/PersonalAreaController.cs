@@ -30,7 +30,7 @@ namespace News.Controllers
         [Authorize(Roles = "editor")]
         public ActionResult EditorHomeAction()
         {
-            return View();
+            return RedirectToAction("Index", "News");
         }
 
         [Authorize(Roles = "journalist")]

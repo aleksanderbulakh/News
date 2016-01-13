@@ -10,7 +10,7 @@ namespace News.Controllers
 {
     public class NewsController : AccountController
     {
-        // GET: News
+        [AllowAnonymous]
         public ActionResult Index()
         {
             List<NewsOfListViewModel> News_View = new List<NewsOfListViewModel>();
@@ -20,24 +20,39 @@ namespace News.Controllers
             {
                 if (n.IsView)
                 {
-                    NewInList = new NewsOfListViewModel();
-                    NewInList.Author = n.Author;
-                    NewInList.Date = n.Date;
-                    NewInList.Header = n.Header;
-                    NewInList.IsView = n.IsView;
-                    NewInList.Id = n.Id;
-
+                    NewInList = new NewsOfListViewModel
+                    {
+                        Author = n.Author,
+                        Date = n.Date,
+                        Header = n.Header,
+                        IsView = n.IsView,
+                        Id = n.Id
+                    };
                     News_View.Add(NewInList);
                 }
                 else if (User.IsInRole("editor") || User.IsInRole("admin"))
                 {
-                    NewInList = new NewsOfListViewModel();
-                    NewInList.Author = n.Author;
-                    NewInList.Date = n.Date;
-                    NewInList.Header = n.Header;
-                    NewInList.IsView = n.IsView;
-                    NewInList.Id = n.Id;
+                    NewInList = new NewsOfListViewModel
+                    {
+                        Author = n.Author,
+                        Date = n.Date,
+                        Header = n.Header,
+                        IsView = n.IsView,
+                        Id = n.Id
+                    };
 
+                    News_View.Add(NewInList);
+                }
+                else if(User.IsInRole("journalist") && User.Identity.Name == n.Author)
+                {
+                    NewInList = new NewsOfListViewModel
+                    {
+                        Author = n.Author,
+                        Date = n.Date,
+                        Header = n.Header,
+                        IsView = n.IsView,
+                        Id = n.Id
+                    };
                     News_View.Add(NewInList);
                 }
             }

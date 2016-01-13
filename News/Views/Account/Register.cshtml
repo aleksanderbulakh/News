@@ -1,6 +1,6 @@
 ﻿@model News.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Регистрация";
+    ViewBag.Title = "Реєстрація";
     List<SelectListItem> listRoles = new List<SelectListItem>();
     listRoles.Insert(0, new SelectListItem { Text="Виберіть роль"});
     listRoles.Insert(1, new SelectListItem { Text="Admin", Value = "admin" });
@@ -9,13 +9,13 @@
     IEnumerable<SelectListItem> selectRoles = listRoles;
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2 class="news">@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <h4>Создайте новую учетную запись.</h4>
+    <h4 class="news">Створити новий аккаунт</h4>
     <hr />
     <div class="form-group">
         @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Регистрация" />
+            <input type="submit" class="btn btn-default" value="Реєстрація" />
         </div>
     </div>
 }

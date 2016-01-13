@@ -22,13 +22,6 @@ namespace News
 
 
             routes.MapRoute(
-                name: "News",
-                url: "news",
-                defaults: new { controller = "News", action = "Index" }
-            );
-
-
-            routes.MapRoute(
                 name: "admin-redirect",
                 url: "admin-redirect",
                 defaults: new { controller = "PersonalArea", action = "AdminHomeAction", id = UrlParameter.Optional }

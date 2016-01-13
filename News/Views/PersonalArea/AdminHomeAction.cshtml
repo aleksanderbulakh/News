@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "AdminHome";
 }
+<div class="ExtraForPossib">
+    <div class="Possibilities">@Html.ActionLink("Зареєструвати користувача", "Register", "Account")</div>
+    <div class="Possibilities">@Html.ActionLink("Додати новину", "AddNew", "News")</div>
+</div>
 
-@Html.ActionLink("Зареєструвати користувача", "Register", "Account")<br />
-@Html.ActionLink("Додати новину", "AddNew", "News")
 

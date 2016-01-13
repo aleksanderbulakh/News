@@ -3,17 +3,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Новини</h2>
+<h2 class="news">Новини</h2>
 
 <ul class="news">
     @foreach (var n in Model)
     {
-        <li>
-            <h3>
-                <a href="~/news/item/@n.Id">@n.Header</a>
-                @if (@n.IsView) {<span class="text-warning" style="display:block;">Видима</span>}
-                else { <span class="text-warning" style="display:block;">Невидима</span> }
-            </h3>            
+        <div>
+            <h3><a href="~/news/item/@n.Id">@n.Header</a></h3>            
             <div class="text-info">@n.Date</div>
             <div class="text-success">@n.Author</div>
             @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
@@ -21,7 +17,7 @@
                 <div><a href="~/news/item/edit/@n.Id">Редагувати</a></div>
             }            
             <div></div>
-        </li>
+        </div>
     }
 </ul>
 

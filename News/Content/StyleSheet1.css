@@ -1,0 +1,88 @@
+﻿.body {
+    width: 1000px;
+    margin: 20px auto;
+    border: 1px solid;
+    padding: 10px;
+    background-color: lightseagreen;
+    background-color: darkcyan;
+    color: darkturquoise;
+    border-color: black;
+}
+.header {
+    border: 1px solid;
+    border-color: darkgray;
+    background-color: gold;
+    height: 200px;
+}
+.content {
+    background-color: azure;
+    border: 5px solid;
+}
+.HomePage {
+    width: 300px;
+    height: 50px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: lightseagreen;
+    background-color: ivory;
+    margin: 40px;
+    text-align: center;
+    font-size: 20pt;
+    box-shadow: 0 0 30px 0 skyblue;
+}
+.ExecuteLogin {
+    width: 300px;
+    height: 50px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: lightseagreen;
+    background-color: ivory;
+    text-align: center;
+    font-size: 20pt;
+    margin-left: 630px;
+    margin-bottom: 200px;
+    box-shadow: 0 0 30px 0 skyblue;
+}
+.Hi {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0px;
+    font-size: 9pt;
+    width: 299px;
+}
+.Exite {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 0px;
+    font-size: 9pt;
+    width: 299px;
+    margin-top: 10px;
+}
+.UseLocal {
+   text-align: center;
+   margin: 10px;
+}
+.news {
+    text-align: center;
+}
+.HeaderNews {
+    text-align: center;
+}
+.Possibilities {
+    width: 300px;
+    height: 100px;
+    border: 1px solid;
+    border-radius: 50px;
+    border-color: lightseagreen;
+    background-color: ivory;
+    text-align: center;
+    font-size: 20pt;
+    box-shadow: 0 0 30px 10px yellow;
+    margin:  40px auto;
+    margin-left: 330px;
+    padding: 10px;
+    display: inline-block;
+}
+.ExtraForPossib {
+    width: 600px;
+}
