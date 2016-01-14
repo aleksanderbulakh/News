@@ -1,13 +1,13 @@
-﻿@model News.Models.New
+﻿@model News.business.ViewModel.NewsViewModel
 @{
     ViewBag.Title = "MoreInfo";
 }
 
-<h2 class="HeaderNews">@Model.Header</h2>
+<h2 class="HeaderNews">@Html.Raw(Model.Header)</h2>
 
-<div class="text-info">@Model.Content</div>
+<div class="text-info">@Html.Raw(Model.Content)</div>
 
-<div>@Model.Date</div>
+<div>@Html.Raw(Model.Date)</div>
 
-<div>@Model.Author</div>
+<div>@Html.Raw(Model.Author)</div>
 

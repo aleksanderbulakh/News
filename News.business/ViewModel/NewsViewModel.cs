@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.IO;
-using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 
-namespace News.Models
+
+namespace News.business.ViewModel
 {
     [DataContract]
-    public class New
+    public class NewsViewModel
     {
         [DataMember]
         public Guid Id { get; set; }
@@ -40,11 +36,8 @@ namespace News.Models
         [Required]
         [Display(Name = "Видимість")]
         public bool IsView { get; set; }
-               
-        
-                  
 
-        public New(New CopyNew)
+        public NewsViewModel(NewsViewModel CopyNew)
         {
             Id = CopyNew.Id;
             Header = CopyNew.Header;
@@ -54,36 +47,6 @@ namespace News.Models
             IsView = CopyNew.IsView;
         }
 
-        public New() { }
-
-        //ЗБерігаємо поточну новину у файл *.json
-        public static void Serialize_All(List<New> ListNews)
-        {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
-
-            using (FileStream fs = new FileStream("D://News.json", FileMode.Create, FileAccess.Write))
-            {
-
-                jsonFormatter.WriteObject(fs, ListNews);
-                fs.Close();
-            }
-        }
-
-
-        //Зчитуємо усі об'єкти з файлу *.json
-        public static List<New> Deserialize_All()
-        {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<New>));
-
-            List<New> All_News = new List<New>();
-
-            using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
-            {
-                    All_News = (List<New>)jsonFormatter.ReadObject(fs);
-                    fs.Close();
-            }
-
-            return All_News;
-        }
+        public NewsViewModel() { }
     }
 }

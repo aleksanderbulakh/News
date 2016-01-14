@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace News.Models
+namespace News.business.ViewModel
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -9,6 +9,7 @@ namespace News.Models
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
     }
+
 
     public class ExternalLoginListViewModel
     {

@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
+using News.business.Config;
+using News.business.Model;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-namespace News.Models
+namespace News.business.Initializer
 {
-    public class AppDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    class AppDbInitializer  :DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -17,7 +15,7 @@ namespace News.Models
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             //Створюємо ролі для викладача, студента та адміна
-            var role1 = new IdentityRole { Name = "admin" }; 
+            var role1 = new IdentityRole { Name = "admin" };
             var role2 = new IdentityRole { Name = "editor" };
             var role3 = new IdentityRole { Name = "journalist" };
 

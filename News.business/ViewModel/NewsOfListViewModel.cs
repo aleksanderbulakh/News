@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace News.Models
+namespace News.business.ViewModel
 {
     public class NewsOfListViewModel
     {
