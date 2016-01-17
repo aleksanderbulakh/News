@@ -11,7 +11,7 @@
 <body>
     <div class="body">
         <div class="header">
-            <div class="HomePage">@Html.ActionLink("Головна сторінка", "Index", "News")</div>
+            <div class="HomePage">@Html.RouteLink("Головна сторінка", new { controller = "News", action = "Index" } )</div>
             <div class="ExecuteLogin">@Html.Partial("_LoginPartial")</div>
         </div>
         <div class="content">

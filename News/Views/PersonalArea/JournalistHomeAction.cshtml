@@ -3,5 +3,5 @@
     ViewBag.Title = "JournalistHome";
 }
 
-<div class="Possibilities">@Html.ActionLink("Додати новину", "AddNew", "News")</div>
+<div class="Possibilities">@Html.RouteLink("Додати новину", new { controller = "News", action = "AddNew" })</div>
 

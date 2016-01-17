@@ -3,8 +3,8 @@
     ViewBag.Title = "AdminHome";
 }
 <div class="ExtraForPossib">
-    <div class="Possibilities">@Html.ActionLink("Зареєструвати користувача", "Register", "Account")</div>
-    <div class="Possibilities">@Html.ActionLink("Додати новину", "AddNew", "News")</div>
+    <div class="Possibilities">@Html.RouteLink("Зареєструвати користувача", new { controller = "Account", action = "Register" } )</div>
+    <div class="Possibilities">@Html.RouteLink("Додати новину", new { controller = "News", action = "AddNew" } )</div>
 </div>
 
 

@@ -8,5 +8,5 @@
 <h3>
     Вітаю! Ви успішно додали новину.
 </h3>
-@Html.ActionLink("Перейти на головну сторінку", "Index", "News")
+@Html.RouteLink("Перейти на головну сторінку", new { controller = "News", action = "Index" } )
 
