@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using News.business.Config;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace News.business.ViewModel
@@ -9,7 +10,6 @@ namespace News.business.ViewModel
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
     }
-
 
     public class ExternalLoginListViewModel
     {

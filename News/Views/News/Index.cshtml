@@ -15,6 +15,7 @@
             @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
             {
                 <div><a href="~/news/item/edit/@n.Id">Редагувати</a></div>
+                <div><a href="~/news/item/delete/@n.Id">Видалити</a></div>
             } 
             @if (User.IsInRole("admin") || User.IsInRole("editor"))
             {

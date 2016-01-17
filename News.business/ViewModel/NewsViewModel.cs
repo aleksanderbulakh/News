@@ -14,12 +14,10 @@ namespace News.business.ViewModel
         [DataMember]
         [Required]
         [Display(Name = "Заголовок")]
-        [StringLength(30, ErrorMessage = "Довжина заголовку повинна бути не більше 30 символів.")]
         public string Header { get; set; }
 
         [DataMember]
         [Required]
-        [StringLength(6000, ErrorMessage = "Довжина заголовку повинна бути не більше 6000 символів.")]
         [Display(Name = "Зміст статті")]
         public string Content { get; set; }
 

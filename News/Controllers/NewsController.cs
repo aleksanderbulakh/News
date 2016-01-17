@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using News.business.Model;
 using News.business.ViewModel;
+using Ninject;
+using News.business.Provider;
 
 namespace News.Controllers
 {
@@ -12,50 +14,13 @@ namespace News.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            List<NewsOfListViewModel> News_View = new List<NewsOfListViewModel>();
-            NewsOfListViewModel NewInList;
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();
-            foreach(var n in All_News)
-            {
-                if (n.IsView)
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsView = n.IsView,
-                        Id = n.Id
-                    };
-                    News_View.Add(NewInList);
-                }
-                else if (User.IsInRole("editor") || User.IsInRole("admin"))
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsView = n.IsView,
-                        Id = n.Id
-                    };
-
-                    News_View.Add(NewInList);
-                }
-                else if(User.IsInRole("journalist") && User.Identity.Name == n.Author)
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsView = n.IsView,
-                        Id = n.Id
-                    };
-                    News_View.Add(NewInList);
-                }
-            }
-            return View(News_View);
+            bool adminRole = User.IsInRole("admin");
+            bool editorRole = User.IsInRole("editor");
+            bool journalistRole = User.IsInRole("journalist");
+            string userName = User.Identity.Name;
+            var newsModel = new NewsModel();
+            var NewsList = newsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userName);
+            return View(NewsList);
         }
 
         [HttpGet]
@@ -68,20 +33,14 @@ namespace News.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin, journalist")]
-        public async Task<ActionResult> AddNew(NewsViewModel new_add)
+        public ActionResult AddNew(NewsViewModel newAdd)
         {
             if (!ModelState.IsValid)
-                return View(new_add);
+                return View(newAdd);
 
-            ApplicationUser author = new ApplicationUser();
-            author = await UserManager.FindByNameAsync(User.Identity.Name);
-            new_add.Date = DateTime.Now;
-            new_add.Author = author.UserName;
-            new_add.Id = new Guid();
-            new_add.Id = Guid.NewGuid();
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();   
-            All_News.Add(new_add);
-            NewsModel.Serialize_All(All_News);
+            string userName = User.Identity.Name;
+            var newsModel = new NewsModel();
+            newsModel.AddNew(userName, newAdd);
             return RedirectToAction("Yeah");
         }
 
@@ -91,96 +50,56 @@ namespace News.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult MoreInfo (Guid Id)
+        public ActionResult MoreInfo(Guid id)
         {
-            NewsModel.Deserialize_All();
-            NewsViewModel ThisNew = new NewsViewModel() ;
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();
-            foreach (var n in All_News)
-            {
-                if (n.Id==Id)
-                {
-                    ThisNew = new NewsViewModel(n);
-                }
-            }
-
-            return View(ThisNew);
+            var newsModel = new NewsModel();
+            var selectedNew = newsModel.MoreInfo(id);
+            return View(selectedNew);
         }
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit (Guid Id)
-        {            
-            NewsViewModel ThisNew = new NewsViewModel();
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();
-            foreach (var n in All_News)
-            {
-                if (n.Id == Id)
-                {
-                    ThisNew = new NewsViewModel(n);
-                }
-            }
+        public ActionResult Edit(Guid id)
+        {
+            
+            var newsModel = new NewsModel();
+            var SelectedNew = newsModel.Edit(id);
 
             if (User.IsInRole("journalist"))
             {
-                if (User.Identity.Name == ThisNew.Author)
+                if (User.Identity.Name == SelectedNew.Author)
                 {
-                    return View(ThisNew);
+                    return View(SelectedNew);
                 }
             }
             else
             {
-                return View(ThisNew);
+                return View(SelectedNew);
             }
-
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult Edit (NewsViewModel model)
+        public ActionResult Edit (NewsViewModel editedData)
         {
             if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+                return View(editedData);
 
-            NewsModel.Deserialize_All();
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();
-            foreach (var n in All_News)
-            {
-                if (n.Id == model.Id)
-                {
-                    n.Header = model.Header;
-                    n.Content = model.Content;
-                    n.IsView = model.IsView;
-                }
-            }
-
-            NewsModel.Serialize_All(All_News);
+            var newsModel = new NewsModel();
+            newsModel.Edit(editedData);
             return RedirectToAction("Index");
         }
 
 
-        
-        [Authorize(Roles = "Admin, Journalist")]
-        public ActionResult DeleteNews(Guid? id)
+
+        [HttpGet]
+        [Authorize(Roles = "admin, journalist")]
+        public ActionResult DeleteNews(Guid id)
         {
-            int i = 0;
-            NewsModel.Deserialize_All();
-            NewsViewModel ThisNew = new NewsViewModel();
-            List<NewsViewModel> All_News = NewsModel.Deserialize_All();
-            foreach (var n in All_News)
-            {
-                if (n.Id == id)
-                {
-                    //ThisNew = new New(n); 
-                    All_News.RemoveAt(i);
-                }
-                i++;
-            }
-            NewsModel.Serialize_All(All_News);
+            var newsModel = new NewsModel();
+            newsModel.DeleteNews(id);
             return RedirectToAction("Yeah");
         }
     }

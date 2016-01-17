@@ -87,10 +87,11 @@ namespace News
                url: "news/item/edit/{id}",
                defaults: new { controller = "News", action = "Edit", id = UrlParameter.Optional }
             );
+
             routes.MapRoute(
-               name: "delete-news",
-               url: "delete-news/{id}",
-               defaults: new { controller = "News", action = "DeleteNews", id = UrlParameter.Optional }
+                name: "news/item/delete",
+                url: "news/item/delete/{id}",
+                defaults: new { controller = "News", action = "DeleteNews", id = UrlParameter.Optional }
             );
         }
     }
