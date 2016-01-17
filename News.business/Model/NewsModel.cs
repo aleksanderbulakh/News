@@ -33,17 +33,17 @@ namespace News.business.Model
         {
             var NewsList = new List<NewsOfListViewModel>();
             NewsOfListViewModel NewInList;
-            var All_News = NewsProviderProperty.Deserialize_All();
-            foreach (var n in All_News)
+            var AllNews = NewsProviderProperty.DeserializeAll();
+            foreach (var n in AllNews)
             {
-                if (n.IsView)
+                if (n.IsVisible)
                 {
                     NewInList = new NewsOfListViewModel
                     {
                         Author = n.Author,
                         Date = n.Date,
                         Header = n.Header,
-                        IsView = n.IsView,
+                        IsVisible = n.IsVisible,
                         Id = n.Id
                     };
                     NewsList.Add(NewInList);
@@ -55,7 +55,7 @@ namespace News.business.Model
                         Author = n.Author,
                         Date = n.Date,
                         Header = n.Header,
-                        IsView = n.IsView,
+                        IsVisible = n.IsVisible,
                         Id = n.Id
                     };
 
@@ -68,7 +68,7 @@ namespace News.business.Model
                         Author = n.Author,
                         Date = n.Date,
                         Header = n.Header,
-                        IsView = n.IsView,
+                        IsVisible = n.IsVisible,
                         Id = n.Id
                     };
                     NewsList.Add(NewInList);
@@ -83,17 +83,17 @@ namespace News.business.Model
             new_add.Author = userName;
             new_add.Id = new Guid();
             new_add.Id = Guid.NewGuid();
-            var AllNews = NewsProviderProperty.Deserialize_All();
+            var AllNews = NewsProviderProperty.DeserializeAll();
             AllNews.Add(new_add);
-            NewsProviderProperty.Serialize_All(AllNews);
+            NewsProviderProperty.SerializeAll(AllNews);
         }
 
         public NewsViewModel MoreInfo(Guid id)
         {
-            NewsProviderProperty.Deserialize_All();
+            NewsProviderProperty.DeserializeAll();
             var selectedNew = new NewsViewModel();
-            var All_News = NewsProviderProperty.Deserialize_All();
-            foreach (var n in All_News)
+            var AllNews = NewsProviderProperty.DeserializeAll();
+            foreach (var n in AllNews)
             {
                 if (n.Id == id)
                 {
@@ -105,26 +105,26 @@ namespace News.business.Model
 
         public void Edit(NewsViewModel editedData)
         {
-            NewsProviderProperty.Deserialize_All();
-            var All_News = NewsProviderProperty.Deserialize_All();
-            foreach (var n in All_News)
+            NewsProviderProperty.DeserializeAll();
+            var AllNews = NewsProviderProperty.DeserializeAll();
+            foreach (var n in AllNews)
             {
                 if (n.Id == editedData.Id)
                 {
                     n.Header = editedData.Header;
                     n.Content = editedData.Content;
-                    n.IsView = editedData.IsView;
+                    n.IsVisible = editedData.IsVisible;
                 }
             }
-            NewsProviderProperty.Serialize_All(All_News);
+            NewsProviderProperty.SerializeAll(AllNews);
         }
 
         public NewsViewModel Edit(Guid id)
         {
             
             var SelectedNew = new NewsViewModel();
-            var All_News = NewsProviderProperty.Deserialize_All();
-            foreach (var n in All_News)
+            var AllNews = NewsProviderProperty.DeserializeAll();
+            foreach (var n in AllNews)
             {
                 if (n.Id == id)
                 {
@@ -136,9 +136,9 @@ namespace News.business.Model
 
         public void DeleteNews(Guid id)
         {
-            var AllNews = NewsProviderProperty.Deserialize_All();
+            var AllNews = NewsProviderProperty.DeserializeAll();
             AllNews.RemoveAll(m => m.Id == id);
-            NewsProviderProperty.Serialize_All(AllNews);
+            NewsProviderProperty.SerializeAll(AllNews);
         }
     }
 }

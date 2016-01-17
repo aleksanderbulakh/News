@@ -9,7 +9,7 @@ namespace News.business.Interfaces
 {
     interface INewsProvider
     {
-        void Serialize_All(List<NewsViewModel> ListNews);
-        List<NewsViewModel> Deserialize_All();
+        void SerializeAll(List<NewsViewModel> ListNews);
+        List<NewsViewModel> DeserializeAll();
     }
 }

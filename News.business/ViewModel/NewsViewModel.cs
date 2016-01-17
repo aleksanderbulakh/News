@@ -33,7 +33,7 @@ namespace News.business.ViewModel
         [DataMember]
         [Required]
         [Display(Name = "Видимість")]
-        public bool IsView { get; set; }
+        public bool IsVisible { get; set; }
 
         public NewsViewModel(NewsViewModel CopyNew)
         {
@@ -42,7 +42,7 @@ namespace News.business.ViewModel
             Content = CopyNew.Content;
             Date = CopyNew.Date;
             Author = CopyNew.Author;
-            IsView = CopyNew.IsView;
+            IsVisible = CopyNew.IsVisible;
         }
 
         public NewsViewModel() { }

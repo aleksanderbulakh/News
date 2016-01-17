@@ -1,6 +1,7 @@
 ﻿using News.business.Config;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace News.business.ViewModel
 {
@@ -82,7 +83,7 @@ namespace News.business.ViewModel
         [Required(ErrorMessage = "Поле <Підтвердження пароля> повинно бути заповнено.")]
         [DataType(DataType.Password)]
         [Display(Name = "Підтвердження пароля")]
-        [Compare("Password", ErrorMessage = "Пароль та його підтвердження не збігаються.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароль та його підтвердження не збігаються.")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Виберіть роль")]
@@ -104,7 +105,7 @@ namespace News.business.ViewModel
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [System.Web.Mvc.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

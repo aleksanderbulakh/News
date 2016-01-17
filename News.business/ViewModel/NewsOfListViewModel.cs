@@ -8,6 +8,6 @@ namespace News.business.ViewModel
         public string Header { get; set; }
         public DateTime Date { get; set; }
         public string Author { get; set; }
-        public bool IsView { get; set; }
+        public bool IsVisible { get; set; }
     }
 }

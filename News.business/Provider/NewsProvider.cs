@@ -10,22 +10,22 @@ namespace News.business.Provider
     [DataContract]
     public class NewsProvider : INewsProvider
     {
-        public List<NewsViewModel> Deserialize_All()
+        public List<NewsViewModel> DeserializeAll()
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
 
-            List<NewsViewModel> All_News = new List<NewsViewModel>();
+            List<NewsViewModel> AllNews = new List<NewsViewModel>();
 
             using (FileStream fs = new FileStream("D://News.json", FileMode.OpenOrCreate))
             {
-                All_News = (List<NewsViewModel>)jsonFormatter.ReadObject(fs);
+                AllNews = (List<NewsViewModel>)jsonFormatter.ReadObject(fs);
                 fs.Close();
             }
 
-            return All_News;
+            return AllNews;
         }
 
-        public void Serialize_All(List<NewsViewModel> ListNews)
+        public void SerializeAll(List<NewsViewModel> ListNews)
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
 

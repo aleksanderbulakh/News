@@ -95,7 +95,7 @@ namespace News.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "admin, journalist")]
+        [Authorize(Roles = "admin, editor")]
         public ActionResult DeleteNews(Guid id)
         {
             var newsModel = new NewsModel();

@@ -19,7 +19,7 @@
             } 
             @if (User.IsInRole("admin") || User.IsInRole("editor"))
             {
-                <div>@(n.IsView == true? "Видима":"Невидима")</div>
+                <div>@(n.IsVisible == true? "Видима":"Невидима")</div>
             }
         </div>
     }
