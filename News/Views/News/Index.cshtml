@@ -16,7 +16,7 @@
             @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
             {
                 <div>@Html.RouteLink("Редагувати", new { controller = "Edit", action = "Edit", id = n.Id })</div>
-                <div>@Html.RouteLink("Видалити", new { controller = "Delete", action = "DeleteNews",id = n.Id })</div>
+                <div>@Html.RouteLink("Видалити", new { controller = "DeleteNews", action = "DeleteNews",id = n.Id })</div>
             } 
             @if (User.IsInRole("admin") || User.IsInRole("editor"))
             {
