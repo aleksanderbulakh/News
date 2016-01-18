@@ -11,7 +11,7 @@ namespace News.Controllers
     {
         // GET: DeleteNews
         [HttpGet]
-        [Authorize(Roles = "admin, editor")]
+        [Authorize(Roles = "admin, editor, journalist")]
         public ActionResult DeleteNews(Guid id)
         {
             var newsModel = new NewsModel();
