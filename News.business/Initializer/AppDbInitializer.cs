@@ -6,7 +6,8 @@ using System.Data.Entity;
 
 namespace News.business.Initializer
 {
-    class AppDbInitializer  :DropCreateDatabaseAlways<ApplicationDbContext>
+
+    public class AppDbInitializer  :DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

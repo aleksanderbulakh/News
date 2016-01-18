@@ -1,6 +1,5 @@
 ﻿@model News.business.ViewModel.RegisterViewModel
 @{
-    ViewBag.Title = "Реєстрація";
     List<SelectListItem> listRoles = new List<SelectListItem>();
     listRoles.Insert(0, new SelectListItem { Text="Виберіть роль"});
     listRoles.Insert(1, new SelectListItem { Text="Admin", Value = "admin" });
@@ -8,9 +7,10 @@
     listRoles.Insert(3, new SelectListItem { Text = "Journalist", Value = "journalist" });
     IEnumerable<SelectListItem> selectRoles = listRoles;
 }
-
-<h2 class="news">@ViewBag.Title.</h2>
-
+@section PageTitle
+{
+    Реєстрація
+}
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

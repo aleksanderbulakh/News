@@ -1,6 +1,7 @@
 ﻿@model News.business.ViewModel.NewsViewModel
-@{
-    ViewBag.Title = "MoreInfo";
+@section PageTitle
+{
+    @Model.Header
 }
 
 <h2 class="HeaderNews">@Html.Raw(Model.Header)</h2>

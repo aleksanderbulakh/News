@@ -72,26 +72,26 @@ namespace News
             routes.MapRoute(
                 name: "new-add",
                 url: "new-add",
-                defaults: new { controller = "News", action = "AddNew", id = UrlParameter.Optional }
+                defaults: new { controller = "AddNews", action = "AddNew", id = UrlParameter.Optional }
             );
 
 
             routes.MapRoute(
                 name: "news/item/",
                 url: "news/item/{id}",
-                defaults: new { controller = "News", action = "MoreInfo", id = UrlParameter.Optional }
+                defaults: new { controller = "MoreInfo", action = "MoreInfo", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                name: "news/item/edit",
                url: "news/item/edit/{id}",
-               defaults: new { controller = "News", action = "Edit", id = UrlParameter.Optional }
+               defaults: new { controller = "Edit", action = "Edit", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "news/item/delete",
                 url: "news/item/delete/{id}",
-                defaults: new { controller = "News", action = "DeleteNews", id = UrlParameter.Optional }
+                defaults: new { controller = "Delete", action = "DeleteNews", id = UrlParameter.Optional }
             );
         }
     }

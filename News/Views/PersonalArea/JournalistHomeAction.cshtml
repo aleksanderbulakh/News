@@ -1,7 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "JournalistHome";
+﻿@section PageTitle
+{
+    Домашня сторінка - Журналіст
 }
-
-<div class="Possibilities">@Html.RouteLink("Додати новину", new { controller = "News", action = "AddNew" })</div>
+<div class="Possibilities">@Html.RouteLink("Додати новину", new { controller = "AddNews", action = "AddNew" })</div>
 

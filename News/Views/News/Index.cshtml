@@ -1,6 +1,7 @@
 ﻿@model List<News.business.ViewModel.NewsOfListViewModel>
-@{
-    ViewBag.Title = "Index";
+@section PageTitle
+{
+    Головна
 }
 
 <h2 class="news">Новини</h2>
@@ -9,13 +10,13 @@
     @foreach (var n in Model)
     {
         <div>
-            <h3>@Html.RouteLink( n.Header , new { controller = "News", action = "MoreInfo", id = n.Id })</h3>            
+            <h3><a href="@Url.Content("~/news/item/" + n.Id)">@Html.Raw(n.Header)</a></h3>            
             <div class="text-info">@Html.Raw(n.Date)</div>
             <div class="text-success">@Html.Raw(n.Author)</div>
             @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
             {
-                <div>@Html.RouteLink("Редагувати", new { controller = "News", action = "Edit", id = n.Id })</div>
-                <div>@Html.RouteLink("Видалити", new { controller = "News", action = "DeleteNews",id = n.Id })</div>
+                <div>@Html.RouteLink("Редагувати", new { controller = "Edit", action = "Edit", id = n.Id })</div>
+                <div>@Html.RouteLink("Видалити", new { controller = "Delete", action = "DeleteNews",id = n.Id })</div>
             } 
             @if (User.IsInRole("admin") || User.IsInRole("editor"))
             {

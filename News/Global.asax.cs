@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using News.business.Initializer;
+using News.business.Model;
+using System.Data.Entity;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -8,7 +11,6 @@ namespace News
     {
         protected void Application_Start()
         {
-            
             //Database.SetInitializer<ApplicationDbContext>(new AppDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
