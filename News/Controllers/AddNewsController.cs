@@ -29,7 +29,7 @@ namespace News.Controllers
             string userName = User.Identity.Name;
             var newsModel = new NewsModel();
             newsModel.AddNew(userName, NewAdd);
-            return RedirectToAction("Yeah", "News");
+            return RedirectToRoute(new { controller = "News", action = "Yeah" });
         }
     }
 }
