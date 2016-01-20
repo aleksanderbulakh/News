@@ -83,6 +83,13 @@
     padding: 10px;
     display: inline-block;
 }
+.Possibilities:hover {
+    background-color: gold;
+}
+.add {
+    display: block;
+    margin-top: 17px;
+}
 .ExtraForPossib {
     width: 600px;
 }
