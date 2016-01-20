@@ -133,7 +133,7 @@ namespace News.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.PhoneNumber, Email = model.UserName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

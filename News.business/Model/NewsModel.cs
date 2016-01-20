@@ -3,6 +3,7 @@ using News.business.ViewModel;
 using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace News.business.Model
 {
@@ -138,6 +139,20 @@ namespace News.business.Model
         {
             var AllNews = NewsProviderProperty.DeserializeAll();
             AllNews.RemoveAll(m => m.Id == id);
+            NewsProviderProperty.SerializeAll(AllNews);
+        }
+        public void SortNewsBy(string sortOrder)
+        {
+            var AllNews = NewsProviderProperty.DeserializeAll();
+            switch (sortOrder)
+            {
+                case "ByAuthor":
+                    AllNews = (List<NewsViewModel>)AllNews.OrderByDescending(m => m.Author);
+                    break;
+                case "ByDate":
+                    AllNews = (List<NewsViewModel>)AllNews.OrderByDescending(m => m.Date);
+                    break;
+            }
             NewsProviderProperty.SerializeAll(AllNews);
         }
     }
