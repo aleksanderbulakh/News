@@ -124,7 +124,7 @@
   <ItemGroup>
     <Compile Include="Config\IdentityConfig.cs" />
     <Compile Include="Initializer\AppDbInitializer.cs" />
-    <Compile Include="Interfaces\INewsProvider.cs" />
+    <Compile Include="NewsInterfaces\INewsProvider.cs" />
     <Compile Include="Model\IdentityModels.cs" />
     <Compile Include="Model\NewsModel.cs" />
     <Compile Include="Model\NewsProviderNinjectModule.cs" />

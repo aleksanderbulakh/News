@@ -54,7 +54,7 @@ namespace News.business.ViewModel
         [RegularExpression(@"^((|\d| |-|))*$", ErrorMessage = "Поле повинно мати тільки символи від 0 до 9.")]
         [StringLength(10, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
         [Display(Name = "Номер телефона")]
-        public string UserName { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Поле <Пароль> повинно бути заповнено.")]
         [StringLength(100, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
@@ -70,8 +70,14 @@ namespace News.business.ViewModel
     {
         [Required(ErrorMessage = "Поле <Номер телефона> повинно бути заповнено.")]
         [RegularExpression(@"^((|\d| |-|))*$", ErrorMessage = "Поле повинно мати тільки символи від 0 до 9.")]
-        [StringLength(10, ErrorMessage = "Значення {0} повинне містити не менше {2} символів.", MinimumLength = 10)]
+        [StringLength(10, ErrorMessage = "Значення {0} повинне містити лише {2} символів.", MinimumLength = 10)]
         [Display(Name = "Номер телефона")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Поле <Логін> повинно бути заповнено.")]
+       // [RegularExpression(@"", ErrorMessage = "Поле повинно мати тільки символи від 0 до 9.")]
+        //[StringLength(10, ErrorMessage = "Значення {0} повинне містити лише {2} символів.", MinimumLength = 10)]
+        [Display(Name = "Логін")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Поле <Пароль> повинно бути заповнено.")]

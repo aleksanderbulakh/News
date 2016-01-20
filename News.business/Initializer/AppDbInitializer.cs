@@ -31,12 +31,8 @@ namespace News.business.Initializer
             var result = userManager.Create(admin, password);
 
             if (result.Succeeded)
-            {
-                //В разі успішного створення адміністратора, додаємо йому нові ролі.
                 userManager.AddToRole(admin.Id, role1.Name);
-                userManager.AddToRole(admin.Id, role2.Name);
-                userManager.AddToRole(admin.Id, role3.Name);
-            }
+
 
             base.Seed(context);
         }

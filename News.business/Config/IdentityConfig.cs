@@ -46,7 +46,7 @@ namespace News.business.Config
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
 
             // Настройка логики проверки паролей
