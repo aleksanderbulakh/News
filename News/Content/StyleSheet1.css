@@ -44,19 +44,22 @@
     box-shadow: 0 0 30px 0 skyblue;
 }
 .Hi {
+    text-align: center;
     border: 1px solid;
     border-radius: 5px;
-    margin: 0px;
+    margin-right: 70px;
     font-size: 9pt;
-    width: 299px;
+    width: 150px;
+    background-color: aquamarine;
 }
-.Exite {
+.Exit {
     border: 1px solid;
     border-radius: 5px;
-    margin: 0px;
+    margin-right: 70px;
     font-size: 9pt;
-    width: 299px;
+    width: 150px;
     margin-top: 10px;
+    background-color: red;
 }
 .UseLocal {
    text-align: center;

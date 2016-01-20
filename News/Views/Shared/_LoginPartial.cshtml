@@ -6,7 +6,7 @@
         @Html.AntiForgeryToken()
 
         <div class="Hi">@Html.RouteLink("Вітаємо, " + User.Identity.GetUserName() + "!", new { controller = "PersonalArea", action = "Index" })</div> 
-        <div class="Exite"><a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></div>
+        <div class="Exit"><a href="javascript:document.getElementById('logoutForm').submit()">Вийти</a></div>
     }
 }
 else
