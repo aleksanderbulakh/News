@@ -27,5 +27,13 @@ namespace News.Controllers
         {
             return View();
         }
+
+        public ActionResult Sorting(Guid id)
+        {
+            
+            var newsModel = new NewsModel();
+
+            return View();
+        }
     }
 }

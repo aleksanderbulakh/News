@@ -1,13 +1,24 @@
-﻿@model List<News.business.ViewModel.NewsOfListViewModel>
+﻿@model News.business.ViewModel.ListNewsViewModel
 @section PageTitle
 {
     Головна
 }
-
+@{
+    List<SelectListItem> listSort = new List<SelectListItem>();
+    listSort.Insert(0, new SelectListItem { Text = "Сортировка по Дате", Value = "ByDate" });
+    listSort.Insert(1, new SelectListItem { Text = "Сортировка по Имени", Value = "ByAuthor" });
+    IEnumerable<SelectListItem> selectSort = listSort;
+}
 <h2 class="news">Новини</h2>
-
+    @using (Html.BeginForm("Index", "News", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.LabelFor(m => m.SelectId , new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.SelectId, selectSort, new { @class = "form-control" })
+        </div>
+    }
 <div class="news">
-    @foreach (var n in Model)
+    @foreach (var n in Model.ListNews)
     {
         <div>
             <h3>@Html.RouteLink(n.Header, new { controller = "MoreInfo", action = "MoreInfo", id = n.Id })</h3>            

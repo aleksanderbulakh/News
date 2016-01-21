@@ -132,6 +132,7 @@
     <Compile Include="Provider\NewsProvider.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
+    <Compile Include="ViewModel\ListNewsViewModel.cs" />
     <Compile Include="ViewModel\NewsOfListViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
   </ItemGroup>
