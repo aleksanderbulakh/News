@@ -20,7 +20,7 @@ namespace News.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Admin, journalist")]
+        [Authorize(Roles = "admin, journalist")]
         public ActionResult AddNew(NewsViewModel NewAdd)
         {
             if (!ModelState.IsValid)

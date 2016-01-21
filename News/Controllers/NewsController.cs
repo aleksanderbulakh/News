@@ -6,13 +6,14 @@ using News.business.Model;
 using News.business.ViewModel;
 using Ninject;
 using News.business.Provider;
+using PagedList;
 
 namespace News.Controllers
 {
     public class NewsController : AccountController
     {
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             bool adminRole = User.IsInRole("admin");
             bool editorRole = User.IsInRole("editor");
@@ -20,7 +21,9 @@ namespace News.Controllers
             string userName = User.Identity.Name;
             var newsModel = new NewsModel();
             var NewsList = newsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userName);
-            return View(NewsList);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(NewsList.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Yeah()
