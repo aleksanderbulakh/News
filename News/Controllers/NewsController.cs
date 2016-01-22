@@ -23,22 +23,22 @@ namespace News.Controllers
             bool editorRole = User.IsInRole("editor");
             bool journalistRole = User.IsInRole("journalist");
             string userName = User.Identity.Name;
-            var newsModel = new NewsModel();            
+            var NewsModel = new NewsModel();            
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
-            List<NewsOfListViewModel> sortedListOfNews = newsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userName);
+            List<NewsOfListViewModel> SortedListOfNews = NewsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userName);
 
             switch (sortOrder)
             {
                 case "ByAuthor":
-                    sortedListOfNews = sortedListOfNews.OrderByDescending(m => m.Author).ToList();                    
+                    SortedListOfNews = SortedListOfNews.OrderByDescending(m => m.Author).ToList();                    
                     break;
                 case "ByDate":
-                    sortedListOfNews = sortedListOfNews.OrderBy(m => m.Date).ToList();
+                    SortedListOfNews = SortedListOfNews.OrderBy(m => m.Date).ToList();
                     break;               
             }
-            return View(sortedListOfNews.ToPagedList(pageNumber, pageSize));
+            return View(SortedListOfNews.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Yeah()

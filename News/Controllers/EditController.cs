@@ -15,8 +15,8 @@ namespace News.Controllers
         [Authorize]
         public ActionResult Edit(Guid id)
         {
-            var newsModel = new NewsModel();
-            var SelectedNew = newsModel.Edit(id);
+            var NewsModel = new NewsModel();
+            var SelectedNew = NewsModel.Edit(id);
 
             if (User.IsInRole("journalist"))
             {
@@ -35,13 +35,13 @@ namespace News.Controllers
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
-        public ActionResult Edit(NewsViewModel editedData)
+        public ActionResult Edit(NewsViewModel EditedData)
         {
             if (!ModelState.IsValid)
-                return View(editedData);
+                return View(EditedData);
 
-            var newsModel = new NewsModel();
-            newsModel.Edit(editedData);
+            var NewsModel = new NewsModel();
+            NewsModel.Edit(EditedData);
             return RedirectToAction("Index", "News");
         }
     }

@@ -9,10 +9,10 @@
 
 <div class="news">
     <div>
-        @Html.ActionLink("ByAuthor", "Index", new { sortOrder = ViewBag.NameSortParm })
+        @Html.RouteLink("ByAuthor", new { action = "Index", sortOrder = ViewBag.NameSortParm })
     </div>
     <div>
-        @Html.ActionLink("ByDate", "Index", new { sortOrder = ViewBag.DateSortParm })
+        @Html.RouteLink("ByDate", new { action = "Index", sortOrder = ViewBag.DateSortParm })
     </div>
     @foreach (var n in Model)
     {

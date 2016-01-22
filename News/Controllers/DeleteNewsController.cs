@@ -14,8 +14,8 @@ namespace News.Controllers
         [Authorize(Roles = "admin, editor, journalist")]
         public ActionResult DeleteNews(Guid id)
         {
-            var newsModel = new NewsModel();
-            newsModel.DeleteNews(id);
+            var NewsModel = new NewsModel();
+            NewsModel.DeleteNews(id);
             return RedirectToRoute(new { controller = "News", action = "Yeah" } );
         }
     }

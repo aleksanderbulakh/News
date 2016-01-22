@@ -27,9 +27,9 @@ namespace News.Controllers
                 return View(NewAdd);
 
             string userName = User.Identity.Name;
-            var newsModel = new NewsModel();
-            newsModel.AddNew(userName, NewAdd);
-            return RedirectToRoute(new { controller = "News", action = "Yeah" });
+            var NewsModel = new NewsModel();
+            NewsModel.AddNew(userName, NewAdd);
+            return RedirectToRoute( new { controller = "News", action = "Yeah" });
         }
     }
 }
