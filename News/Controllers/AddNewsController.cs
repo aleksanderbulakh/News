@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace News.Controllers
 {
-    public class AddNewsController : Controller
+    public class AddNewsController : AccountController
     {
         // GET: AddNews
         [HttpGet]
@@ -21,15 +21,21 @@ namespace News.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, journalist")]
-        public ActionResult AddNew(NewsViewModel NewAdd)
+        public async System.Threading.Tasks.Task<ActionResult> AddNew(NewsViewModel NewAdd)
         {
             if (!ModelState.IsValid)
                 return View(NewAdd);
 
-            string userName = User.Identity.Name;
+            var UserData = await UserManager.FindByNameAsync(User.Identity.Name);
+
             var NewsModel = new NewsModel();
-            NewsModel.AddNew(userName, NewAdd);
-            return RedirectToRoute( new { controller = "News", action = "Yeah" });
+
+            NewAdd.AuthorId = UserData.Id;
+            NewAdd.Author = UserData.UserName;
+
+            NewsModel.AddNew(NewAdd);
+            
+            return RedirectToRoute(new { controller = "News", action = "Yeah" });
         }
     }
 }

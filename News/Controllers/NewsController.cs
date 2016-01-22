@@ -14,31 +14,34 @@ namespace News.Controllers
     public class NewsController : AccountController
     {
         [AllowAnonymous]
-        public ActionResult Index(string sortOrder, int? page)
+        public async Task<ActionResult> Index(string sortOrder, int? page)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = sortOrder== "ByAuthor" ? "" : "ByAuthor";
-            ViewBag.DateSortParm = sortOrder=="ByDate" ? "" : "ByDate";
-            bool adminRole = User.IsInRole("admin");
-            bool editorRole = User.IsInRole("editor");
-            bool journalistRole = User.IsInRole("journalist");
-            string userName = User.Identity.Name;
-            var NewsModel = new NewsModel();            
+            ApplicationUser UserData;
+            string userId = null;
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
-            List<NewsOfListViewModel> SortedListOfNews = NewsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userName);
-
-            switch (sortOrder)
+            if (User.Identity.IsAuthenticated)
             {
-                case "ByAuthor":
-                    SortedListOfNews = SortedListOfNews.OrderByDescending(m => m.Author).ToList();                    
-                    break;
-                case "ByDate":
-                    SortedListOfNews = SortedListOfNews.OrderBy(m => m.Date).ToList();
-                    break;               
+                UserData = await UserManager.FindByNameAsync(User.Identity.Name);
+                userId = UserData.Id;
             }
-            return View(SortedListOfNews.ToPagedList(pageNumber, pageSize));
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = sortOrder == "ByAuthor" ? "" : "ByAuthor";
+            ViewBag.DateSortParm = sortOrder == "ByDate" ? "" : "ByDate";
+            ViewBag.UserId = userId;
+
+            bool adminRole = User.IsInRole("admin");
+            bool editorRole = User.IsInRole("editor");
+            bool journalistRole = User.IsInRole("journalist");
+            
+            var NewsModel = new NewsModel();            
+
+            var ListOfNews = NewsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userId);
+            ListOfNews = NewsModel.SortNewsBy(sortOrder, ListOfNews);
+            
+            return View(ListOfNews.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Yeah()

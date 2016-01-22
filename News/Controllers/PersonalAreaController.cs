@@ -14,10 +14,13 @@ namespace News.Controllers
         {
             if (User.IsInRole("admin"))
                 return RedirectToAction("AdminHomeAction");
+
             if (User.IsInRole("editor") && !User.IsInRole("admin"))
                 return RedirectToAction("EditorHomeAction");
+
             if (User.IsInRole("journalist") && !User.IsInRole("admin"))
                 return RedirectToAction("JournalistHomeAction");
+
             return RedirectToAction("Index", "News");
         }
 

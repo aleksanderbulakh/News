@@ -30,11 +30,13 @@ namespace News.business.Model
                 return newsProvider;
             }
         }
-        public List<NewsOfListViewModel> NewsOnScreen(bool adminRole, bool editorRole, bool journalistRole, string userName)
+        public List<NewsOfListViewModel> NewsOnScreen(bool adminRole, bool editorRole, bool journalistRole, string userId)
         {
             var NewsList = new List<NewsOfListViewModel>();
             NewsOfListViewModel NewInList;
-            var AllNews = NewsProviderProperty.DeserializeAll();
+
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             foreach (var n in AllNews)
             {
                 if (n.IsVisible)
@@ -45,8 +47,10 @@ namespace News.business.Model
                         Date = n.Date,
                         Header = n.Header,
                         IsVisible = n.IsVisible,
-                        Id = n.Id
+                        Id = n.Id,
+                        AuthorId = n.AuthorId
                     };
+
                     NewsList.Add(NewInList);
                 }
                 else if (adminRole || editorRole)
@@ -57,12 +61,13 @@ namespace News.business.Model
                         Date = n.Date,
                         Header = n.Header,
                         IsVisible = n.IsVisible,
-                        Id = n.Id
+                        Id = n.Id,
+                        AuthorId = n.AuthorId
                     };
 
                     NewsList.Add(NewInList);
                 }
-                else if (journalistRole && userName == n.Author)
+                else if (journalistRole && userId == n.AuthorId)
                 {
                     NewInList = new NewsOfListViewModel
                     {
@@ -70,30 +75,38 @@ namespace News.business.Model
                         Date = n.Date,
                         Header = n.Header,
                         IsVisible = n.IsVisible,
-                        Id = n.Id
+                        Id = n.Id,
+                        AuthorId = n.AuthorId
                     };
+
                     NewsList.Add(NewInList);
                 }
             }
             return NewsList;
         }
 
-        public void AddNew(string userName, NewsViewModel new_add)
+        public void AddNew(NewsViewModel new_add)
         {
             new_add.Date = DateTime.Now;
-            new_add.Author = userName;
+
             new_add.Id = new Guid();
             new_add.Id = Guid.NewGuid();
-            var AllNews = NewsProviderProperty.DeserializeAll();
+
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             AllNews.Add(new_add);
-            NewsProviderProperty.SerializeAll(AllNews);
+
+            NewsProviderProperty.SetAllNews(AllNews);
         }
 
         public NewsViewModel MoreInfo(Guid id)
         {
-            NewsProviderProperty.DeserializeAll();
+            NewsProviderProperty.GetAllNews();
+
             var selectedNew = new NewsViewModel();
-            var AllNews = NewsProviderProperty.DeserializeAll();
+
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             foreach (var n in AllNews)
             {
                 if (n.Id == id)
@@ -101,13 +114,14 @@ namespace News.business.Model
                     selectedNew = new NewsViewModel(n);
                 }
             }
+
             return selectedNew;
         }
 
         public void Edit(NewsViewModel editedData)
-        {
-            NewsProviderProperty.DeserializeAll();
-            var AllNews = NewsProviderProperty.DeserializeAll();
+        { 
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             foreach (var n in AllNews)
             {
                 if (n.Id == editedData.Id)
@@ -117,14 +131,17 @@ namespace News.business.Model
                     n.IsVisible = editedData.IsVisible;
                 }
             }
-            NewsProviderProperty.SerializeAll(AllNews);
+
+            NewsProviderProperty.SetAllNews(AllNews);
         }
 
         public NewsViewModel Edit(Guid id)
         {
             
             var SelectedNew = new NewsViewModel();
-            var AllNews = NewsProviderProperty.DeserializeAll();
+
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             foreach (var n in AllNews)
             {
                 if (n.Id == id)
@@ -132,28 +149,31 @@ namespace News.business.Model
                     SelectedNew = new NewsViewModel(n);
                 }
             }
+
             return SelectedNew;            
         }
 
         public void DeleteNews(Guid id)
         {
-            var AllNews = NewsProviderProperty.DeserializeAll();
+            var AllNews = NewsProviderProperty.GetAllNews();
+
             AllNews.RemoveAll(m => m.Id == id);
-            NewsProviderProperty.SerializeAll(AllNews);
+
+            NewsProviderProperty.SetAllNews(AllNews);
         }
-        public void SortNewsBy(string sortOrder)
+        public List<NewsOfListViewModel> SortNewsBy(string sortOrder, List<NewsOfListViewModel> AllNews)
         {
-            var AllNews = NewsProviderProperty.DeserializeAll();
             switch (sortOrder)
             {
                 case "ByAuthor":
-                    AllNews = (List<NewsViewModel>)AllNews.OrderByDescending(m => m.Author);
+                    AllNews = AllNews.OrderByDescending(m=>m.Author).ToList();
                     break;
                 case "ByDate":
-                    AllNews = (List<NewsViewModel>)AllNews.OrderByDescending(m => m.Date);
+                    AllNews = AllNews.OrderBy(m => m.Date).ToList();
                     break;
             }
-            NewsProviderProperty.SerializeAll(AllNews);
+
+            return AllNews;
         }
     }
 }

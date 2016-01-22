@@ -13,7 +13,8 @@ namespace News.business.Provider
     public class NewsProvider : INewsProvider
     {
         public string path = AppDomain.CurrentDomain.BaseDirectory + "/News.json";
-        public List<NewsViewModel> DeserializeAll()
+
+        public List<NewsViewModel> GetAllNews()
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
 
@@ -28,7 +29,7 @@ namespace News.business.Provider
             return AllNews;
         }
 
-        public void SerializeAll(List<NewsViewModel> ListNews)
+        public void SetAllNews(List<NewsViewModel> ListNews)
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
 

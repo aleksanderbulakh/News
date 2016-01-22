@@ -35,6 +35,9 @@ namespace News.business.ViewModel
         [Display(Name = "Видимість")]
         public bool IsVisible { get; set; }
 
+        [DataMember]
+        public string AuthorId { get; set; }
+
         public NewsViewModel(NewsViewModel CopyNew)
         {
             Id = CopyNew.Id;
@@ -43,6 +46,7 @@ namespace News.business.ViewModel
             Date = CopyNew.Date;
             Author = CopyNew.Author;
             IsVisible = CopyNew.IsVisible;
+            AuthorId = CopyNew.AuthorId;
         }
 
         public NewsViewModel() { }

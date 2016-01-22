@@ -41,7 +41,9 @@ namespace News.Controllers
                 return View(EditedData);
 
             var NewsModel = new NewsModel();
+
             NewsModel.Edit(EditedData);
+
             return RedirectToAction("Index", "News");
         }
     }

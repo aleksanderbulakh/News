@@ -15,7 +15,9 @@ namespace News.Controllers
         public ActionResult DeleteNews(Guid id)
         {
             var NewsModel = new NewsModel();
+
             NewsModel.DeleteNews(id);
+
             return RedirectToRoute(new { controller = "News", action = "Yeah" } );
         }
     }

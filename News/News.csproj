@@ -201,7 +201,6 @@
     <Compile Include="Controllers\AddNewsController.cs" />
     <Compile Include="Controllers\DeleteNewsController.cs" />
     <Compile Include="Controllers\EditController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoreInfoController.cs" />
     <Compile Include="Controllers\NewsController.cs" />

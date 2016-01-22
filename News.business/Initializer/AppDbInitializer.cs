@@ -28,12 +28,12 @@ namespace News.business.Initializer
             //Створюємо адміністратора
             var admin = new ApplicationUser { UserName = "0631111111" };
             string password = "qwerty1234";
+
             var result = userManager.Create(admin, password);
 
             if (result.Succeeded)
                 userManager.AddToRole(admin.Id, role1.Name);
-
-
+            
             base.Seed(context);
         }
     }

@@ -29,7 +29,7 @@
             {
                 <div>@(n.IsVisible == true? "Видима":"Невидима")</div>
             }
-            @if (User.Identity.Name == @n.Author && User.IsInRole("journalist"))
+            @if (ViewBag.UserId == @n.AuthorId && User.IsInRole("journalist"))
             {
                 <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
             }

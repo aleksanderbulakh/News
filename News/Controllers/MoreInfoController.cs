@@ -14,9 +14,12 @@ namespace News.Controllers
         public ActionResult MoreInfo(Guid id)
         {
             var NewsModel = new NewsModel();
+
             var SelectedNew = NewsModel.MoreInfo(id);
+
             if (!SelectedNew.IsVisible && User.IsInRole("journalist"))
                 return RedirectToRoute(new { controller = "News", action = "Index" });
+
             return View(SelectedNew);
         }
     }
