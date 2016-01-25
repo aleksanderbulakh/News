@@ -14,13 +14,11 @@ namespace News.Controllers
     public class NewsController : AccountController
     {
         [AllowAnonymous]
-        public async Task<ActionResult> Index(string sortOrder, int? page)
+        public async Task<ActionResult> Index(string sortOrder, int page = 1)
         {
             ApplicationUser UserData;
+           
             string userId = null;
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
             if (User.Identity.IsAuthenticated)
             {
                 UserData = await UserManager.FindByNameAsync(User.Identity.Name);
@@ -36,12 +34,21 @@ namespace News.Controllers
             bool editorRole = User.IsInRole("editor");
             bool journalistRole = User.IsInRole("journalist");
             
-            var NewsModel = new NewsModel();            
+            var newsModel = new NewsModel();
 
-            var ListOfNews = NewsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userId);
-            ListOfNews = NewsModel.SortNewsBy(sortOrder, ListOfNews);
-            
-            return View(ListOfNews.ToPagedList(pageNumber, pageSize));
+
+            var listOfNews = newsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userId);
+            listOfNews = newsModel.SortNewsBy(sortOrder, listOfNews);
+
+
+
+            int pageSize = 3;
+            var dataList = new NewsListViewModel {
+                SortOrder = sortOrder,
+                NewsPerPages = listOfNews.Skip((page - 1) * pageSize).Take(pageSize),
+                PageData = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = listOfNews.Count },
+            };
+            return View(dataList);
         }
 
         public ActionResult Yeah()

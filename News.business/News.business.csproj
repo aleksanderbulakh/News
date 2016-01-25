@@ -94,6 +94,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -131,7 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\IdentityConfig.cs" />
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Initializer\AppDbInitializer.cs" />
+    <Compile Include="Model\PageInfo.cs" />
     <Compile Include="NewsInterfaces\INewsProvider.cs" />
     <Compile Include="Model\IdentityModels.cs" />
     <Compile Include="Model\NewsModel.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Provider\NewsProvider.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
+    <Compile Include="ViewModel\NewsListViewModel.cs" />
     <Compile Include="ViewModel\NewsOfListViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿@model PagedList.IPagedList<News.business.ViewModel.NewsOfListViewModel>
-@using PagedList.Mvc;
+﻿@model News.business.ViewModel.NewsListViewModel
+@using News.business.Helpers
 @section PageTitle
 {
     Головна
@@ -14,32 +14,34 @@
     <div>
         @Html.RouteLink("ByDate", new { action = "Index", sortOrder = ViewBag.DateSortParm })
     </div>
-    @foreach (var n in Model)
-    {
-        <div>
-            <h3><a href="@Url.Content("/news/item/"+@n.Id)">@Html.Raw(n.Header)</a></h3>            
-            <div class="text-info">@Html.Raw(n.Date)</div>
-            <div class="text-success">@Html.Raw(n.Author)</div>
-            @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
-            {
-                <div>@Html.RouteLink("Редагувати", new { controller = "Edit", action = "Edit", id = n.Id })</div>
-                <div>@Html.RouteLink("Видалити", new { controller = "DeleteNews", action = "DeleteNews",id = n.Id })</div>
-            } 
-            @if (User.IsInRole("admin") || User.IsInRole("editor"))
-            {
-                <div>@(n.IsVisible == true? "Видима":"Невидима")</div>
-            }
-            @if (ViewBag.UserId == @n.AuthorId && User.IsInRole("journalist"))
-            {
-                <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
-            }
-        </div>
-    }
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @foreach (var n in Model.NewsPerPages)
+        {
+            <div>
+                <h3><a href="@Url.Content("/news/item/" + @n.Id)">@Html.Raw(n.Header)</a></h3>            
+                <div class="text-info">@Html.Raw(n.Date)</div>
+                <div class="text-success">@Html.Raw(n.Author)</div>
+                @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
+                {
+                    <div>@Html.RouteLink("Редагувати", new { controller = "Edit", action = "Edit", id = n.Id })</div>
+                    <div>@Html.RouteLink("Видалити", new { controller = "DeleteNews", action = "DeleteNews", id = n.Id })</div>
+                } 
+                @if (User.IsInRole("admin") || User.IsInRole("editor"))
+                {
+                    <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
+                }
+                @if (ViewBag.UserId == @n.AuthorId && User.IsInRole("journalist"))
+                {
+                    <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
+                }
+            </div>
 
-        @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-    
+
+            <br />
+        }
+        <div class="btn-group">
+            @Html.PageLinks(Model.PageData, x => Url.Action("Index", new { page = x, sortOrder = ViewBag.CurrentSort }))
+        </div>
+        
+
 </div>
 
