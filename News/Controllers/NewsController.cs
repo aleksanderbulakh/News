@@ -28,7 +28,6 @@ namespace News.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = sortOrder == "ByAuthor" ? "" : "ByAuthor";
             ViewBag.DateSortParm = sortOrder == "ByDate" ? "" : "ByDate";
-            ViewBag.UserId = userId;
 
             bool adminRole = User.IsInRole("admin");
             bool editorRole = User.IsInRole("editor");
@@ -36,18 +35,44 @@ namespace News.Controllers
             
             var newsModel = new NewsModel();
 
-
-            var listOfNews = newsModel.NewsOnScreen(adminRole, editorRole, journalistRole, userId);
+            var listOfNews = newsModel.NewsOnScreen();
             listOfNews = newsModel.SortNewsBy(sortOrder, listOfNews);
 
+            int countVisibleNews = 0;
+            foreach (var newsData in listOfNews)
+            {
+                if (newsData.IsVisible || User.IsInRole("admin") || User.IsInRole("editor") || (newsData.AuthorId == userId && User.IsInRole("journalist")))
+                    countVisibleNews++;
+            }
 
+            NewsListViewModel dataList;
 
-            int pageSize = 3;
-            var dataList = new NewsListViewModel {
-                SortOrder = sortOrder,
-                NewsPerPages = listOfNews.Skip((page - 1) * pageSize).Take(pageSize),
-                PageData = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = listOfNews.Count },
-            };
+            if (countVisibleNews > 3)
+            {
+                int pageSize = 3;
+                dataList = new NewsListViewModel
+                {
+
+                    UserId = userId,
+                    NewsPerPages = listOfNews.Skip((page - 1) * pageSize).Take(pageSize),
+                    PageData = new PageInfo
+                    {
+                        PageNumber = page,
+                        PageSize = pageSize,
+                        TotalItems = listOfNews.Count
+                    }
+                };
+            }
+            else
+            {
+                dataList = new NewsListViewModel
+                {
+                    UserId = userId,
+                    NewsPerPages = listOfNews,
+                    PageData = new PageInfo { PageSize = 0 }
+                };
+            }
+
             return View(dataList);
         }
 

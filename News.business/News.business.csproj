@@ -144,7 +144,6 @@
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="ViewModel\NewsListViewModel.cs" />
-    <Compile Include="ViewModel\NewsOfListViewModel.cs" />
     <Compile Include="ViewModel\NewsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

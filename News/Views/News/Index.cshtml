@@ -16,31 +16,37 @@
     </div>
         @foreach (var n in Model.NewsPerPages)
         {
+            if(!(n.IsVisible || User.IsInRole("admin") || User.IsInRole("editor") || (n.AuthorId == Model.UserId && User.IsInRole("journalist"))))
+            {
+                continue;
+            }
+
             <div>
                 <h3><a href="@Url.Content("/news/item/" + @n.Id)">@Html.Raw(n.Header)</a></h3>            
                 <div class="text-info">@Html.Raw(n.Date)</div>
                 <div class="text-success">@Html.Raw(n.Author)</div>
-                @if (User.IsInRole("editor") || User.IsInRole("admin") || User.Identity.Name == @n.Author)
+                @if (User.IsInRole("editor") || User.IsInRole("admin") || Model.UserId == @n.Author)
                 {
-                    <div>@Html.RouteLink("Редагувати", new { controller = "Edit", action = "Edit", id = n.Id })</div>
+                    <div>@Html.RouteLink("Редагувати", new { controller = "EditNews", action = "Edit", id = n.Id })</div>
                     <div>@Html.RouteLink("Видалити", new { controller = "DeleteNews", action = "DeleteNews", id = n.Id })</div>
                 } 
                 @if (User.IsInRole("admin") || User.IsInRole("editor"))
                 {
                     <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
                 }
-                @if (ViewBag.UserId == @n.AuthorId && User.IsInRole("journalist"))
+                @if (Model.UserId == @n.AuthorId && User.IsInRole("journalist"))
                 {
                     <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
                 }
             </div>
-
-
             <br />
         }
-        <div class="btn-group">
-            @Html.PageLinks(Model.PageData, x => Url.Action("Index", new { page = x, sortOrder = ViewBag.CurrentSort }))
-        </div>
+        @if (Model.PageData.PageSize != 0)
+        {
+            <div class="btn-group">
+                @Html.PageLinks(Model.PageData, x => Url.Action("Index", new { page = x, sortOrder = ViewBag.CurrentSort }))
+            </div>
+        }
         
 
 </div>

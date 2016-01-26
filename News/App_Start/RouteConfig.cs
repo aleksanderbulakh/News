@@ -85,7 +85,7 @@ namespace News
             routes.MapRoute(
                name: "news/item/edit",
                url: "news/item/edit/{id}",
-               defaults: new { controller = "Edit", action = "Edit", id = UrlParameter.Optional }
+               defaults: new { controller = "EditNews", action = "Edit", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

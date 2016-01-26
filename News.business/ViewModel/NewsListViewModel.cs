@@ -9,8 +9,8 @@ namespace News.business.ViewModel
 {
     public class NewsListViewModel
     {
-        public IEnumerable<NewsOfListViewModel> NewsPerPages { get; set; }
+        public IEnumerable<NewsViewModel> NewsPerPages { get; set; }
         public PageInfo PageData { get; set; }
-        public string SortOrder { get; set; }
+        public string UserId { get; set; }
     }
 }

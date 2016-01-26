@@ -30,59 +30,13 @@ namespace News.business.Model
                 return newsProvider;
             }
         }
-        public List<NewsOfListViewModel> NewsOnScreen(bool adminRole, bool editorRole, bool journalistRole, string userId)
+        public List<NewsViewModel> NewsOnScreen()
         {
-            var NewsList = new List<NewsOfListViewModel>();
-            NewsOfListViewModel NewInList;
+            var NewsList = new List<NewsViewModel>();
 
-            var AllNews = NewsProviderProperty.GetAllNews();
+            var allNews = NewsProviderProperty.GetAllNews();
 
-            foreach (var n in AllNews)
-            {
-                if (n.IsVisible)
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsVisible = n.IsVisible,
-                        Id = n.Id,
-                        AuthorId = n.AuthorId
-                    };
-
-                    NewsList.Add(NewInList);
-                }
-                else if (adminRole || editorRole)
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsVisible = n.IsVisible,
-                        Id = n.Id,
-                        AuthorId = n.AuthorId
-                    };
-
-                    NewsList.Add(NewInList);
-                }
-                else if (journalistRole && userId == n.AuthorId)
-                {
-                    NewInList = new NewsOfListViewModel
-                    {
-                        Author = n.Author,
-                        Date = n.Date,
-                        Header = n.Header,
-                        IsVisible = n.IsVisible,
-                        Id = n.Id,
-                        AuthorId = n.AuthorId
-                    };
-
-                    NewsList.Add(NewInList);
-                }
-            }
-            return NewsList;
+            return allNews;
         }
 
         public void AddNew(NewsViewModel new_add)
@@ -161,7 +115,7 @@ namespace News.business.Model
 
             NewsProviderProperty.SetAllNews(AllNews);
         }
-        public List<NewsOfListViewModel> SortNewsBy(string sortOrder, List<NewsOfListViewModel> AllNews)
+        public List<NewsViewModel> SortNewsBy(string sortOrder, List<NewsViewModel> AllNews)
         {
             switch (sortOrder)
             {

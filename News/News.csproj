@@ -200,7 +200,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddNewsController.cs" />
     <Compile Include="Controllers\DeleteNewsController.cs" />
-    <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\EditNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoreInfoController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -275,7 +275,7 @@
     <Content Include="Views\PersonalArea\AdminHomeAction.cshtml" />
     <Content Include="Views\PersonalArea\EditorHomeAction.cshtml" />
     <Content Include="Views\PersonalArea\JournalistHomeAction.cshtml" />
-    <Content Include="Views\Edit\Edit.cshtml" />
+    <Content Include="Views\EditNews\Edit.cshtml" />
     <Content Include="Views\MoreInfo\MoreInfo.cshtml" />
     <Content Include="Views\AddNews\AddNew.cshtml" />
   </ItemGroup>

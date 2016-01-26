@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace News.Controllers
 {
-    public class EditController : Controller
+    public class EditNewsController : Controller
     {
         // GET: Edit
         [HttpGet]

@@ -111,7 +111,7 @@ namespace News.business.ViewModel
 
         [DataType(DataType.Password)]
         [Display(Name = "Подтверждение пароля")]
-        [System.Web.Mvc.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
