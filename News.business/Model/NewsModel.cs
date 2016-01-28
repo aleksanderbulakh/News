@@ -120,14 +120,14 @@ namespace News.business.Model
             switch (sortOrder)
             {
                 case "ByAuthor":
-                    AllNews = AllNews.OrderByDescending(m=>m.Author).ToList();
-                    break;
-                case "ByDate":
-                    AllNews = AllNews.OrderBy(m => m.Date).ToList();
-                    break;
-            }
+                    return AllNews.OrderByDescending(m => m.Author).ToList();
 
-            return AllNews;
+                case "ByDate":
+                    return AllNews.OrderBy(m => m.Date).ToList();
+
+                default:
+                    return AllNews;
+            }
         }
     }
 }

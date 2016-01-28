@@ -16,22 +16,18 @@ namespace News.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string sortOrder, int page = 1)
         {
-            ApplicationUser UserData;
+            ApplicationUser userData;
            
             string userId = null;
             if (User.Identity.IsAuthenticated)
             {
-                UserData = await UserManager.FindByNameAsync(User.Identity.Name);
-                userId = UserData.Id;
+                userData = await UserManager.FindByNameAsync(User.Identity.Name);
+                userId = userData.Id;
             }
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = sortOrder == "ByAuthor" ? "" : "ByAuthor";
             ViewBag.DateSortParm = sortOrder == "ByDate" ? "" : "ByDate";
-
-            bool adminRole = User.IsInRole("admin");
-            bool editorRole = User.IsInRole("editor");
-            bool journalistRole = User.IsInRole("journalist");
             
             var newsModel = new NewsModel();
 

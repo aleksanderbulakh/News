@@ -18,15 +18,10 @@ namespace News.business.Provider
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
 
-            List<NewsViewModel> AllNews = new List<NewsViewModel>();
-
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
-                AllNews = (List<NewsViewModel>)jsonFormatter.ReadObject(fs);
-                fs.Close();
+                return (List<NewsViewModel>)jsonFormatter.ReadObject(fs);
             }
-
-            return AllNews;
         }
 
         public void SetAllNews(List<NewsViewModel> ListNews)
@@ -35,10 +30,23 @@ namespace News.business.Provider
 
             using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-
                 jsonFormatter.WriteObject(fs, ListNews);
-                fs.Close();
             }
+        }
+
+        public NewsViewModel GetById(Guid id)
+        {
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<NewsViewModel>));
+
+            List<NewsViewModel> newsList;
+            //NewsViewModel selectedNewsArticle;
+
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                newsList = (List<NewsViewModel>)jsonFormatter.ReadObject(fs);
+            }
+
+            return newsList.Find(m => m.Id == id);
         }
     }
 }

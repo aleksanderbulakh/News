@@ -14,6 +14,7 @@
     <div>
         @Html.RouteLink("ByDate", new { action = "Index", sortOrder = ViewBag.DateSortParm })
     </div>
+
         @foreach (var n in Model.NewsPerPages)
         {
             if(!(n.IsVisible || User.IsInRole("admin") || User.IsInRole("editor") || (n.AuthorId == Model.UserId && User.IsInRole("journalist"))))
@@ -32,7 +33,7 @@
                 } 
                 @if (User.IsInRole("admin") || User.IsInRole("editor"))
                 {
-                    <div>@(n.IsVisible == true ? "Видима" : "Невидима")</div>
+                    <div>@(n.IsVisible ? "Видима" : "Невидима")</div>
                 }
                 @if (Model.UserId == @n.AuthorId && User.IsInRole("journalist"))
                 {
@@ -41,6 +42,7 @@
             </div>
             <br />
         }
+
         @if (Model.PageData.PageSize != 0)
         {
             <div class="btn-group">
